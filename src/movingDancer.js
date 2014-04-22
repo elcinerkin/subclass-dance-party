@@ -9,19 +9,28 @@ MovingDancer.prototype = Object.create(Dancer.prototype);
 MovingDancer.prototype.constructor = MovingDancer;
 
 MovingDancer.prototype.move = function(){
+  var MARGIN = 25;
   var newTop;
   var newLeft;
   var screenWidth = $('body').width();
   var screenHeight = $('body').height();
+  var objWidth = this._$node.css('width');
+  objWidth = Number.parseInt(objWidth.substr(0, objWidth.length));
+  var objHeight = this._$node.css('height');
+  objHeight = Number.parseInt(objHeight.substr(0, objHeight.length));
 
   this._direction = Math.random() < 0.90 ? this._direction : Math.random() * 2 * Math.PI;
 
   newLeft = this._left + this._speed * Math.cos(this._direction);
   newTop = this._top + this._speed * Math.sin(this._direction);
 
-  if (newLeft <= 0 || newLeft >= screenWidth ||
-      newTop <= 0 || newTop >= screenHeight) {
-    this._direction = this._direction + Math.PI/2;
+  if (newLeft <= MARGIN || newLeft >= (screenWidth - objWidth - MARGIN) ||
+      newTop <= MARGIN || newTop >= (screenHeight - objHeight - MARGIN)) {
+    this._direction = this._direction + Math.PI/2 * Math.random();
+    newLeft = Math.max(MARGIN, newLeft);
+    newLeft = Math.min(screenWidth - objWidth - MARGIN, newLeft);
+    newTop = Math.max(MARGIN, newTop);
+    newTop = Math.min(screenHeight - objHeight - MARGIN, newTop);
   }
 
   if (this._direction > 3*Math.PI/2 || this._direction < Math.PI/2) {
