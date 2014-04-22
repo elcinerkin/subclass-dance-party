@@ -4,6 +4,8 @@ var ResizingDancer = function(top, left, timeBetweenSteps){
   this._oldStep = Dancer.prototype.step;
 
   Dancer.call(this, top, left, timeBetweenSteps);
+  this._$node.css('border-color', 'white');
+  this._$node.css('border-width', '3px');
 };
 
 ResizingDancer.prototype = Object.create(Dancer.prototype);
@@ -15,18 +17,10 @@ ResizingDancer.prototype.step = function(){
   // toggle() is a jQuery method to show/hide the <span> tag.
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
-  this._$node.toggle(function(){
-    $(this).stop().animate({
+  this._$node.animate({
       width:'100px',
       height:'100px',
-      'border-radius':'100px'},
-      500);
-  }, function(){
-    $(this).stop().animate({
-      width: '100px',
-      height: '100px',
-      'border-radius': '100px'
-    },
-    500);
-  });
+      borderRadius:'100px',
+      top: "-=50px"
+    },3000);
 };

@@ -4,6 +4,7 @@ var FadingDancer = function(top, left, timeBetweenSteps){
   this._oldStep = Dancer.prototype.step;
 
   Dancer.call(this, top, left, timeBetweenSteps);
+  this._$node.css('border-color', 'blue');
 };
 
 FadingDancer.prototype = Object.create(Dancer.prototype);

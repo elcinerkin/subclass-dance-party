@@ -4,6 +4,7 @@ var BlinkyDancer = function(top, left, timeBetweenSteps){
   this._oldStep = Dancer.prototype.step;
 
   Dancer.call(this, top, left, timeBetweenSteps);
+  this._$node.css('border-radius', 0);
 };
 
 BlinkyDancer.prototype = Object.create(Dancer.prototype);

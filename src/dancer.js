@@ -4,14 +4,18 @@ var Dancer = function(top, left, timeBetweenSteps){
   // use jQuery to create an HTML <span> tag
   this._$node = $('<span class="dancer"></span>');
   this._timeBetweenSteps = timeBetweenSteps;
-
-
+  this._top = top;
+  this._left = left;
   this.step();
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition(top, left);
 
+};
 
+Dancer.prototype.lineUp = function() {
+  this._$node.stop().animate({'left':'0'}, 150);
+  this.setPosition(this._top, 0);
 };
 
 Dancer.prototype.step = function(){
@@ -21,6 +25,13 @@ Dancer.prototype.step = function(){
   setTimeout(function() {
     self.step();
   }, this._timeBetweenSteps);
+};
+
+Dancer.prototype.spreadOut = function() {
+  var newLeft = Math.random() * $('body').width();
+  var newTop = Math.random() * $('body').height();
+  this._$node.stop().animate({'left' : newLeft, 'top' : newTop}, 150);
+  this.setPosition(newTop, newLeft);
 };
 
 
@@ -33,4 +44,6 @@ Dancer.prototype.setPosition = function(top, left){
     left: left
   };
   this._$node.css(styleSettings);
+  this._top = top;
+  this._left = left;
 };
